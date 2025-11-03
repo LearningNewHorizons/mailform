@@ -1,0 +1,1 @@
+{"smtp": "smtp://@smtp.gmail.com","from": "","rateLimit": { "timespan": 300 , "requests": 1 },"recipients": [""], "origin":"","redirect":{"success":"","error":""}}

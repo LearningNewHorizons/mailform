@@ -94,12 +94,12 @@ router.post("/:target", async (req: Request, res: Response) => {
             const fieldFirstName = fields["firstName"] instanceof Array ? fields["firstName"][0] : fields["firstName"]
             const fieldLastName = fields["lastName"] instanceof Array ? fields["lastName"][0] : fields["lastName"]
             const fieldSubjectPrefix = fields["subjectPrefix"] instanceof Array ? fields["subjectPrefix"][0] : fields["subjectPrefix"] ?? ""
-            const subject = (target.subjectPrefix ?? "") + fieldSubjectPrefix + (fields["subject"] instanceof Array ? fields["subject"][0] : fields["subject"])
+            const subject = (target.subjectPrefix ?? "") + fieldSubjectPrefix + " - " + (fields["subject"] instanceof Array ? fields["subject"][0] : fields["subject"])
             const fieldBody = fields["body"] instanceof Array ? fields["body"][0] : fields["body"]
 
             // send email
             let from = EmailService.formatFromField(fieldFrom ?? target.from, fieldFirstName, fieldLastName);
-            let sent = await EmailService.sendMail(req.params.target, from, subject, fieldBody, files);
+            let sent = await EmailService.sendMail(req.params.target, from, fieldSubjectPrefix, subject, fieldBody, files);
 
             if(sent instanceof Error || !sent) {
                 if(target.redirect?.error) return res.redirect(getRedirectUrl(req, target.redirect.error));

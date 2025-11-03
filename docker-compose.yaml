@@ -1,0 +1,18 @@
+name: ecemcafe-mailform
+services:
+  ecemcafe-mailform:
+    image: feuerhamster/mailform:021125
+    container_name: ecemcafe-mailform
+    hostname: ecemcafe-mailform
+    volumes:
+      - ./data/targets:/app/targets
+    environment:
+      - PORT=3000
+      - PROXY=true
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: 2
+        compress: "true"
